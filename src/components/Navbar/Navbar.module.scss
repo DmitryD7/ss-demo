@@ -1,0 +1,98 @@
+.navbar {
+  z-index: 1;
+  left: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  height: 72px;
+  background: #19191c;
+  color: #f9f9f9;
+
+  button {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    line-height: 1;
+    color: inherit;
+    font-size: 20px;
+    @media (width >= 500px) {
+      font-size: 16px;
+    }
+  }
+
+  .burger {
+    z-index: 3;
+    right: 0;
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    background-image: url("../../assets/navbar/menu.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    @media (width >= 500px) {
+      display: none;
+    }
+  }
+
+  .openedBurger {
+    background-image: url("../../assets/navbar/close.svg");
+  }
+
+  .button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 24px;
+    height: 100%;
+    opacity: 0.6;
+    @media (width >= 500px) {
+      padding: 0 10px 0 24px;
+    }
+  }
+
+  .activeBtn {
+    opacity: unset;
+  }
+
+  .navbar_menu {
+    left: -9999px;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0d0d0e;
+    opacity: 0;
+    visibility: hidden;
+    transition-property: opacity, visibility;
+    transition-duration: 0.3s;
+    position: fixed;
+
+
+    @media (width >= 500px) {
+      position: static;
+      flex-direction: row;
+      justify-content: flex-start;
+      background: transparent;
+      opacity: 1;
+      visibility: visible;
+    }
+
+  }
+
+  .openedDropdowns {
+    opacity: 1;
+    visibility: visible;
+    left: 0;
+    right: 0;
+  }
+}
+
+:is(.navbar, .burger, .dropdowns) {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
