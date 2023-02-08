@@ -9,6 +9,8 @@ import {useSelector} from "react-redux";
 import {FetchItemsResponseDataType, FetchModelsResponseDataType} from "./api/inventoryAPI";
 import {InventoryItem} from "./components/InventoryItem/InventoryItem";
 import {InventoryPage} from "./pages/InventoryPage/InventoryPage";
+import {ModelsCarousel} from "./components/ModelsCarousel/ModelsCarousel";
+import {ModelComponent} from "./components/ModelsCarousel/ModelComponent/ModelComponent";
 
 
 function App() {
@@ -30,7 +32,8 @@ function App() {
     return (
         <div className="App">
             <Navbar/>
-            <SideBar/>
+            <SideBar models={models}/>
+
             <InventoryPage inventory={inventoryItems} collection={'Home'}/>
             {/*<Routes>*/}
             {/*    /!*<Route path={'/'} element={<InventoryPage inventory={} collection={'tops'}/>}/>*!/*/}

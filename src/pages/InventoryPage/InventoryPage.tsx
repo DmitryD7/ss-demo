@@ -9,7 +9,6 @@ export const InventoryPage = (props: InventoryPagePropsType) => {
 
     return (
         <div className={s.InventoryPage}>
-            {/*<h2>{collection}</h2>*/}
             {itemsArr.map(item => {
                 const id = Object.keys(item)[0];
                 // @ts-ignore
@@ -21,7 +20,6 @@ export const InventoryPage = (props: InventoryPagePropsType) => {
 }
 
 type InventoryPagePropsType = {
-    // inventory: { [x: string]: ItemType }[];
     inventory: FetchItemsResponseDataType;
     collection: string
 }
