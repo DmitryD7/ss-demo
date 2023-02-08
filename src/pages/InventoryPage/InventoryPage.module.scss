@@ -1,0 +1,12 @@
+.InventoryPage {
+  margin: 89px 10% 0 10%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  @media only screen and (max-width: 1024px) {
+    margin: 89px 0 0 0;
+    padding: 0;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

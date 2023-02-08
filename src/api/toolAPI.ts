@@ -1,15 +1,15 @@
-import axios from 'axios';
+// import axios from 'axios';
+//
+// const instance = axios.create({
+//     baseURL: 'https://api.stylescan.net/v1/tool/',
+//     withCredentials: true,
+// });
 
-const instance = axios.create({
-    baseURL: 'https://api.stylescan.net/v1/tool/',
-    withCredentials: true,
-});
-
-export const modelsAPI = {
-    fetchModels() {
-        return instance.get<FetchModelsResponseDataType>('models.json');
-    },
-};
+// export const modelsAPI = {
+//     fetchModels() {
+//         return instance.get<FetchModelsResponseDataType>('models.json');
+//     },
+// };
 
 export type ModelType = {
     "id": number,
@@ -20,4 +20,13 @@ export type ModelType = {
     "height": string,
 }
 
-export type FetchModelsResponseDataType = Array<ModelType>
+export type _FetchModelsResponseDataType = Array<ModelType>
+
+export type InventoryItemType = {
+    name: string
+    id: string,
+    url: string,
+    tags: string[]
+}
+
+export type _FetchItemsResponseDataType = Array<InventoryItemType>

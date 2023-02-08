@@ -1,8 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {handleAsyncServerAppError, handleAsyncServerNetworkError, ThunkError} from "../../utils/errorUtils";
 import {appCommonActions} from "../applicationCommonActions";
-import {FetchItemsResponseDataType, inventoryAPI} from "../../api/inventoryAPI";
-import {FetchModelsResponseDataType, modelsAPI} from "../../api/toolAPI";
+import {FetchItemsResponseDataType, FetchModelsResponseDataType, inventoryAPI} from "../../api/inventoryAPI";
 
 const {setAppStatus, setAppError} = appCommonActions;
 
@@ -25,7 +24,7 @@ const fetchInventoryData = createAsyncThunk<FetchItemsResponseDataType, undefine
 const fetchModelsData = createAsyncThunk<FetchModelsResponseDataType, undefined, ThunkError>('appdata/fetchModels', async (param, thunkAPI) => {
     thunkAPI.dispatch(setAppStatus({status: 'loading'}));
     try {
-        const res = await modelsAPI.fetchModels();
+        const res = await inventoryAPI.fetchModels();
         if (res.data) {
             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}));
             thunkAPI.dispatch(setAppError({error: null}));
@@ -41,8 +40,8 @@ const fetchModelsData = createAsyncThunk<FetchModelsResponseDataType, undefined,
 export const appDataSlice = createSlice({
     name: 'appdata',
     initialState: {
-        models: [] as FetchModelsResponseDataType,
-        inventory: [] as FetchItemsResponseDataType,
+        models: {} as FetchModelsResponseDataType,
+        inventory: {} as FetchItemsResponseDataType,
     },
     reducers: {},
     extraReducers: builder => {

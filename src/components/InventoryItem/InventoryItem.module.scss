@@ -1,0 +1,52 @@
+.InventoryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  a {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    align-items: center;
+    transition: background-color 0.5s;
+    position: relative;
+    padding: 3rem;
+    .Overlay {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: url('../../assets/StyleItWithStylescan.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 50%;
+      opacity: 0;
+      transition: 0.5s opacity;
+      background-color: rgba(0, 0, 0, .5);
+      &:hover {
+        opacity: 1;
+      }
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+  .InventoryItem_title {
+    color: #666;
+    flex: 0 0 4rem;
+    font-size: 11pt;
+  }
+  @media only screen and (max-width: 1024px) {
+    a {
+      padding: 2rem;
+    }
+    .InventoryItem_title {
+      padding-left: 5px;
+      font-size: 9pt;
+    }
+  }
+}

@@ -1,21 +1,31 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'https://stylescan.com/fitpic/',
-    withCredentials: true,
+    baseURL: './data/',
 });
 
 export const inventoryAPI = {
     fetchItems() {
         return instance.get<FetchItemsResponseDataType>('items.json');
     },
+    fetchModels() {
+        return instance.get<FetchModelsResponseDataType>('models.json');
+    },
 };
 
-export type InventoryItemType = {
+type ItemType = {
     name: string
-    id: string,
-    url: string,
-    tags: string[]
 }
 
-export type FetchItemsResponseDataType = Array<InventoryItemType>
+export interface FetchItemsResponseDataType {
+    [id: string]: ItemType
+}
+
+type ModelType = {
+    size: string
+}
+
+export interface FetchModelsResponseDataType {
+    [id: string]: ModelType
+}
+
