@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleAsyncServerAppError, handleAsyncServerNetworkError, ThunkError} from "../../utils/errorUtils";
 import {appCommonActions} from "../applicationCommonActions";
 import {FetchItemsResponseDataType, FetchModelsResponseDataType, inventoryAPI} from "../../api/inventoryAPI";
@@ -42,8 +42,17 @@ export const appDataSlice = createSlice({
     initialState: {
         models: {} as FetchModelsResponseDataType,
         inventory: {} as FetchItemsResponseDataType,
+        currItem: '',
+        currModel: '',
     },
-    reducers: {},
+    reducers: {
+        setCurrItem: (state,action: PayloadAction<{id: string}>) => {
+            state.currItem = action.payload.id;
+        },
+        setCurrModel: (state,action: PayloadAction<{id: string}>) => {
+            state.currModel = action.payload.id;
+        },
+    },
     extraReducers: builder => {
         builder.addCase(fetchInventoryData.fulfilled, (state, action) => {
             state.inventory = action.payload

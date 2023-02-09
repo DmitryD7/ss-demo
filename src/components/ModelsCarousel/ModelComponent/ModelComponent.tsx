@@ -2,14 +2,17 @@ import s from './ModelComponent.module.scss'
 import React, {useCallback} from "react";
 
 export const ModelComponent = (props: ModelComponentPropsType) => {
-    const {id, size} = props;
+    const {id, size, onModelClick} = props;
 
     const getModelImg = useCallback(() => {
         return <img src={require(`../../../assets/sidebar/model-thumbnails/${id}.png`)} alt={size}/>
-    }, [id]);
+    }, [id, size]);
 
+    const onModelClickHandler = () => {
+        onModelClick(id)
+    };
     return (
-        <div className={s.ModelComponent}>
+        <div className={s.ModelComponent} onClick={onModelClickHandler}>
             {getModelImg()}
             <span>{size}</span>
         </div>
@@ -17,6 +20,7 @@ export const ModelComponent = (props: ModelComponentPropsType) => {
 };
 
 type ModelComponentPropsType = {
-    id?: string
-    size?: string
+    id: string
+    size: string
+    onModelClick: (id: string) => void
 }

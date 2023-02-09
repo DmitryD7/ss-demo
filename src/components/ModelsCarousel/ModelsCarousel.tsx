@@ -1,6 +1,6 @@
 import s from './ModelsCarousel.module.scss';
 import {FetchModelsResponseDataType} from "../../api/inventoryAPI";
-import {getArr} from "../../utils/utils";
+import {getArr, useAppDispatch} from "../../utils/utils";
 import {ModelComponent} from "./ModelComponent/ModelComponent";
 
 import {Swiper, SwiperSlide} from "swiper/react";
@@ -11,11 +11,20 @@ import "swiper/scss";
 import "swiper/scss/navigation";
 import React, {ChangeEvent, useState} from "react";
 import {CoverflowEffectOptions} from "swiper/types/modules/effect-coverflow";
+import {appdataActions} from "../../app/appdataReducer";
 
 
 export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
     const {models} = props;
     const modelsArr = getArr(models);
+
+    const {setCurrModel} = appdataActions;
+    const dispatch = useAppDispatch();
+
+    const onModelClick = (id:string) => {
+        dispatch(setCurrModel({id}))
+    };
+
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
     const onUploadPhotoHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +73,7 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                     const size = model[id].size;
                     return (
                         <SwiperSlide key={id}>
-                            <ModelComponent id={id} size={size}/>
+                            <ModelComponent id={id} size={size} onModelClick={onModelClick}/>
                         </SwiperSlide>
                     );
                 })}

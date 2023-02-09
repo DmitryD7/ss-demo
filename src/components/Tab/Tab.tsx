@@ -5,9 +5,8 @@ import {FetchModelsResponseDataType} from "../../api/inventoryAPI";
 import {ControlsPanel} from "../ControlsPanel/ControlsPanel";
 
 export const SideBar = (props: SideBarPropsType) => {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    const {models} = props;
+    const {models, isOpen} = props;
+    const [isSidebarOpen, setIsSidebarOpen] = useState(isOpen || false);
 
     const openSidebarHandler = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -35,4 +34,5 @@ export const SideBar = (props: SideBarPropsType) => {
 
 type SideBarPropsType = {
     models: FetchModelsResponseDataType
+    isOpen?: boolean
 }

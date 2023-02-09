@@ -2,16 +2,16 @@ import {appdataActions, appdataReducer} from "./index";
 import {FetchItemsResponseDataType, FetchModelsResponseDataType} from "../../api/inventoryAPI";
 
 
-const {fetchInventoryData, fetchModelsData} = appdataActions;
+const {fetchInventoryData, fetchModelsData, setCurrModel, setCurrItem} = appdataActions;
 
 export const inventoryData: FetchItemsResponseDataType = {
-    "1":{
+    "1": {
         "name": "ALICE"
     },
-    "2":{
+    "2": {
         "name": "Blouse"
     },
-    "3":{
+    "3": {
         "name": "T-Shirt"
     },
 }
@@ -30,13 +30,28 @@ export const modelsData: FetchModelsResponseDataType = {
 let startState: {
     models: FetchModelsResponseDataType,
     inventory: FetchItemsResponseDataType,
+    currItem: string,
+    currModel: string,
 }
 
 beforeEach(() => {
     startState = {
         models: {},
         inventory: {},
+        currItem: '',
+        currModel: '',
     };
+});
+
+test("correct current item id must be set", () => {
+    const endState = appdataReducer(startState, setCurrItem({id: 'item123'}));
+
+    expect(endState.currItem).toBe('item123');
+});
+test("correct current model id must be set", () => {
+    const endState = appdataReducer(startState, setCurrModel({id: 'model123'}));
+
+    expect(endState.currModel).toBe('model123');
 });
 
 test("correct models data must be set", () => {
@@ -54,6 +69,3 @@ test("correct inventory data must be set", () => {
 
     expect(endState.inventory['2'].name).toBe('Blouse');
 });
-
-
-
