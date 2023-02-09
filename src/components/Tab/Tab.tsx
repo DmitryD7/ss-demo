@@ -2,6 +2,7 @@ import s from './Tab.module.scss'
 import React, {useState} from "react";
 import {ModelsCarousel} from "../ModelsCarousel/ModelsCarousel";
 import {FetchModelsResponseDataType} from "../../api/inventoryAPI";
+import {ControlsPanel} from "../ControlsPanel/ControlsPanel";
 
 export const SideBar = (props: SideBarPropsType) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -25,6 +26,7 @@ export const SideBar = (props: SideBarPropsType) => {
                     <div className={s.ModelsList}>
                         <ModelsCarousel models={models}/>
                     </div>
+                    <ControlsPanel/>
                 </div>
             </div>
         </div>

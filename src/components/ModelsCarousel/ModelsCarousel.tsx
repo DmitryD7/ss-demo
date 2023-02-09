@@ -25,6 +25,7 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
     const settings: CoverflowEffectOptions = {
         rotate: 1,
         slideShadows: false,
+        depth: 450
     };
 
     return (
@@ -32,9 +33,9 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
             <Swiper
                 effect={"coverflow"}
                 coverflowEffect={settings}
-                slidesPerView={3}
+                slidesPerView={2}
                 centeredSlides={true}
-                spaceBetween={30}
+                spaceBetween={-91}
                 navigation={true}
                 modules={[Navigation, EffectCoverflow]}
 
@@ -47,7 +48,6 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                             accept={"image/*"}
                             onChange={onUploadPhotoHandler}
                             style={{display: 'none'}}
-
                         />
                         <label htmlFor={'myImage'}>
                             <img
