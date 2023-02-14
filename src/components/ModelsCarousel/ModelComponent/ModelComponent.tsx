@@ -5,7 +5,7 @@ export const ModelComponent = (props: ModelComponentPropsType) => {
     const {id, size, onModelClick} = props;
 
     const getModelImg = useCallback(() => {
-        return <img src={require(`../../../assets/sidebar/model-thumbnails/${id}.png`)} alt={size}/>
+        return <img src={require(`../../../assets/pics/model-chooser-2600/${id}.png`)} alt={size}/>
     }, [id, size]);
 
     const onModelClickHandler = () => {
@@ -14,7 +14,7 @@ export const ModelComponent = (props: ModelComponentPropsType) => {
     return (
         <div className={s.ModelComponent} onClick={onModelClickHandler}>
             {getModelImg()}
-            <span>{size}</span>
+            {/*<span>{size}</span>*/}
         </div>
     );
 };

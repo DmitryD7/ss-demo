@@ -1,43 +1,62 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
-import {Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {Navbar} from "./components/Navbar/Navbar";
 import {SideBar} from "./components/Tab/Tab";
 import {appdataActions, appdataSelectors} from "./app/appdataReducer";
 import {useAppDispatch} from "./utils/utils";
 import {useSelector} from "react-redux";
-import {FetchItemsResponseDataType, FetchModelsResponseDataType} from "./api/inventoryAPI";
-import {InventoryItem} from "./components/InventoryItem/InventoryItem";
 import {InventoryPage} from "./pages/InventoryPage/InventoryPage";
-import {ModelsCarousel} from "./components/ModelsCarousel/ModelsCarousel";
-import {ModelComponent} from "./components/ModelsCarousel/ModelComponent/ModelComponent";
 
 
 function App() {
-    const {fetchInventoryData, fetchModelsData} = appdataActions;
+    const {fetchInventoryData, fetchModelsData, fetchItemRules} = appdataActions;
     const dispatch = useAppDispatch();
-    const {selectInventoryItems, selectModels} = appdataSelectors;
+    const {selectInventoryItems, selectModels, selectRules} = appdataSelectors;
 
     const inventoryItems = useSelector(selectInventoryItems);
     const models = useSelector(selectModels);
+    const rules = useSelector(selectRules);
 
     useEffect(() => {
         dispatch(fetchInventoryData());
         dispatch(fetchModelsData());
+        dispatch(fetchItemRules());
     }, []);
 
-    // const modelsArr = getArr(models);
-    // const itemsArr = getArr(inventoryItems);
+    const groupItems_ = () => {
+        const groups = {};
+        for (let [id, item] of Object.entries(inventoryItems)) {
+            const newItem = {
+                ...item,
+                id: id
+            }
+            // @ts-ignore
+            let items = groups[newItem.group];
+            if (!items) { // @ts-ignore
+                groups[newItem.group] = items = [];
+            }
+            items.push(newItem);
+        }
+        return groups;
+    };
+
+    const orderEntries = rules.order?.map((group, i) => [group, i]);
+    const order = orderEntries && Object.fromEntries(orderEntries);
+    const groups = groupItems_();
 
     return (
         <div className="App">
             <Navbar/>
             <SideBar models={models}/>
 
-            <InventoryPage inventory={inventoryItems} collection={'Home'}/>
-            {/*<Routes>*/}
-            {/*    /!*<Route path={'/'} element={<InventoryPage inventory={} collection={'tops'}/>}/>*!/*/}
-            {/*</Routes>*/}
+            <Routes>
+                <Route path={'/*'} element={<InventoryPage
+                    inventory={inventoryItems}
+                    group={'start'}
+                    rules={rules}
+                />}/>
+            </Routes>
         </div>
     );
 }

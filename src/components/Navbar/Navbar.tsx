@@ -9,7 +9,7 @@ export const Navbar = () => {
         setIsOpen(!isOpen)
     };
 
-    const menuItems = ['tops', 'bottoms', 'dresses', 'accessories', 'shoes'];
+    const menuItems = ['tops', 'bottoms', 'accessories', 'shoes'];
 
     const handleClick = (item: string) => {
         setActiveItem(item !== activeItem ? item : "");
@@ -18,8 +18,15 @@ export const Navbar = () => {
 
     return (
         <nav className={s.navbar}>
-            <button onClick={onOpenBurgerHandler} className={`${s.burger} ${isOpen && s.openedBurger}`}></button>
-            <button className={s.button}>HOME</button>
+            <button
+                onClick={onOpenBurgerHandler}
+                className={`${s.burger} ${isOpen && s.openedBurger}`}
+            ></button>
+            <button className={s.button}
+                    style={{color: '#0d0d0e', fontWeight: '700'}}
+            >
+                YOUR BRAND
+            </button>
             <div className={`${s.navbar_menu} ${isOpen && s.openedDropdowns}`}>
                 {menuItems.map(i => <button
                     key={i}

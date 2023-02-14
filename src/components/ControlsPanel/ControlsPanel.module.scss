@@ -6,7 +6,7 @@
   right: 0;
   padding: 0 1vh 1vh 1vh;
   display: grid;
-  grid-template-columns: 1fr 2fr 0.5fr 0.5fr;
+  grid-template-columns: 1fr 2fr 1fr;
   grid-gap: 1vh 0;
   justify-items: center;
   align-items: center;
@@ -76,4 +76,8 @@
   .faded {
     opacity: 0;
   }
+}
+
+.hidden {
+  visibility: hidden;
 }

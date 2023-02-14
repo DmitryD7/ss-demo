@@ -1,15 +1,16 @@
 import s from './InventoryItem.module.scss'
 import React, {useCallback} from "react";
+import {ItemType} from "../../api/inventoryAPI";
 
 export const InventoryItem = (props: InventoryItemPropsType) => {
-    const {id, name, onItemClick} = props;
+    const {id, name, onItemClick, item} = props;
 
     const getItemImg = useCallback(() => {
         return <img src={require(`../../assets/pics/item-thumbnails/${id}.png`)} alt={name}/>
     }, [id, name]);
 
     const onItemClickHandler = () => {
-        onItemClick(id);
+        onItemClick(item);
     };
 
     return (
@@ -24,7 +25,8 @@ export const InventoryItem = (props: InventoryItemPropsType) => {
 }
 
 type InventoryItemPropsType = {
+    item: ItemType
     id: string
     name: string
-    onItemClick: (id: string) => void
+    onItemClick: (item: ItemType) => void
 }

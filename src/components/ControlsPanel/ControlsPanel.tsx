@@ -1,14 +1,32 @@
 import s from './ControlsPanel.module.scss'
-import React from "react";
+import React, {useCallback} from "react";
+import {useAppDispatch} from "../../utils/utils";
+import {appdataActions, appdataSelectors} from "../../app/appdataReducer";
+import {useSelector} from "react-redux";
 
 export const ControlsPanel = () => {
+    const dispatch = useAppDispatch();
+    const {setCurrItem, setCurrModelId, setCurrModelType} = appdataActions;
+    const {selectCurrModel, selectCurrItems} = appdataSelectors;
+
+    const currModelId = useSelector(selectCurrModel);
+    const currItems = useSelector(selectCurrItems);
+
+    const onSwitchModelHandler = useCallback(() => {
+        dispatch(setCurrModelId({id: ''}))
+    }, [dispatch, setCurrModelId]);
+
+    const onRemoveItemsHandler = useCallback(() => {
+        dispatch(setCurrItem([]));
+        dispatch(setCurrModelType({type: 'covered'}))
+    }, [dispatch, setCurrItem, setCurrModelType]);
 
     return (
         <div className={s.ControlsPanel}>
-            <div className={s.switch_model_btn}>Switch<br/>Model</div>
-            <div className={s.add_cart_btn}>Add to Cart</div>
-            <div className={s.remove_btn}>Remove</div>
-            <div className={s.cart}></div>
+            <div className={`${s.switch_model_btn} ${!currModelId && s.hidden}`} onClick={onSwitchModelHandler}>Switch<br/>Model</div>
+            <div className={`${s.add_cart_btn} ${!currItems || !currModelId && s.hidden}`}>Add to Cart</div>
+            <div className={`${s.remove_btn} ${!currItems[0]?.name && s.hidden}`} onClick={onRemoveItemsHandler}>Remove</div>
+            {/*<div className={s.cart}></div>*/}
         </div>
     );
 }

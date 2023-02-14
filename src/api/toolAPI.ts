@@ -7,7 +7,7 @@
 
 // export const modelsAPI = {
 //     fetchModels() {
-//         return instance.get<FetchModelsResponseDataType>('models.json');
+//         return instance.get<ModelsType>('models.json');
 //     },
 // };
 

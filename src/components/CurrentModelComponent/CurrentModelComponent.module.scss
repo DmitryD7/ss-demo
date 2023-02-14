@@ -1,0 +1,10 @@
+.CurrentModelComponent {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img {
+    max-width: 476px;
+    margin-bottom: 9px;
+  }
+}

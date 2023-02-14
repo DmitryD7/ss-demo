@@ -1,21 +1,25 @@
 import {appdataActions, appdataReducer} from "./index";
-import {FetchItemsResponseDataType, FetchModelsResponseDataType} from "../../api/inventoryAPI";
+import {InventoryItemsResponseType, ItemType, ModelsType, RulesType} from "../../api/inventoryAPI";
+import {CurrentItemType, CurrentModelType} from "./appdataReducer";
 
 
-const {fetchInventoryData, fetchModelsData, setCurrModel, setCurrItem} = appdataActions;
+const {fetchInventoryData, fetchModelsData, setCurrModelId, setCurrModelType, setCurrItem} = appdataActions;
 
-export const inventoryData: FetchItemsResponseDataType = {
+export const inventoryData: InventoryItemsResponseType = {
     "1": {
-        "name": "ALICE"
+        "name": "ALICE",
+        group: 'top',
     },
     "2": {
-        "name": "Blouse"
+        "name": "Pants",
+        group: 'bot',
     },
     "3": {
-        "name": "T-Shirt"
+        "name": "T-Shirt",
+        group: 'top',
     },
 }
-export const modelsData: FetchModelsResponseDataType = {
+export const modelsData: ModelsType = {
     "1": {
         "size": "US 0"
     },
@@ -28,30 +32,45 @@ export const modelsData: FetchModelsResponseDataType = {
 }
 
 let startState: {
-    models: FetchModelsResponseDataType,
-    inventory: FetchItemsResponseDataType,
-    currItem: string,
-    currModel: string,
+    models: ModelsType,
+    inventory:  Array<ItemType>,
+    currItems:  Array<CurrentItemType>,
+    currModel: CurrentModelType,
+    rules: RulesType,
 }
 
 beforeEach(() => {
     startState = {
         models: {},
-        inventory: {},
-        currItem: '',
-        currModel: '',
+        inventory: [],
+        currItems: [],
+        currModel: {
+            id: '',
+            type: 'covered',
+        },
+        rules: {
+            exclusion: {
+                bot: [],
+                top: [],
+            },
+            nude: [['bot']],
+            order: [],
+        },
     };
 });
 
-test("correct current item id must be set", () => {
-    const endState = appdataReducer(startState, setCurrItem({id: 'item123'}));
+test("correct current item must be set", () => {
+    const endState = appdataReducer(startState, setCurrItem(
+        [{
+            "1": {
+                name: "ALICE",
+                group: 'dress',
+                id: '1',
+            },
+        }]
+    ));
 
-    expect(endState.currItem).toBe('item123');
-});
-test("correct current model id must be set", () => {
-    const endState = appdataReducer(startState, setCurrModel({id: 'model123'}));
-
-    expect(endState.currModel).toBe('model123');
+    expect(endState.currItems.length).toBe(1);
 });
 
 test("correct models data must be set", () => {
@@ -67,5 +86,18 @@ test("correct inventory data must be set", () => {
 
     const endState = appdataReducer(startState, action);
 
-    expect(endState.inventory['2'].name).toBe('Blouse');
+    expect(endState.inventory[1].name).toBe('Pants');
+    expect(endState.inventory.length).toBe(3);
 });
+test("correct model id data must be set", () => {
+    const endState = appdataReducer(startState, setCurrModelId({id: 'model123'}));
+
+    expect(endState.currModel.id).toBe('model123');
+});
+
+test("correct model type data must be set", () => {
+    const endState = appdataReducer(startState, setCurrModelType({type: 'nude'}));
+
+    expect(endState.currModel.type).toBe('nude');
+});
+

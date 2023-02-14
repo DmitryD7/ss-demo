@@ -6,26 +6,44 @@ const instance = axios.create({
 
 export const inventoryAPI = {
     fetchItems() {
-        return instance.get<FetchItemsResponseDataType>('items.json');
+        return instance.get<InventoryItemsResponseType>('items.json');
     },
     fetchModels() {
-        return instance.get<FetchModelsResponseDataType>('models.json');
+        return instance.get<ModelsType>('models.json');
+    },
+    fetchRules() {
+        return instance.get<RulesType>('item-rules.json');
     },
 };
 
-type ItemType = {
+export type ItemGroupType = "feet" | "top" | "bot" | "bag"
+
+export type ItemType = {
     name: string
+    group: ItemGroupType
+    id?: string
 }
 
-export interface FetchItemsResponseDataType {
+export interface InventoryItemsResponseType {
     [id: string]: ItemType
 }
 
-type ModelType = {
+export type ModelType = {
     size: string
 }
 
-export interface FetchModelsResponseDataType {
+export interface ModelsType {
     [id: string]: ModelType
+}
+
+export interface RulesType {
+    exclusion: Exclusion
+    nude: Array<Array<'top' | 'bot'>>
+    order: string[]
+}
+
+export interface Exclusion {
+    top: string[]
+    bot: string[]
 }
 

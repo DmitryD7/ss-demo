@@ -1,5 +1,5 @@
 import s from './ModelsCarousel.module.scss';
-import {FetchModelsResponseDataType} from "../../api/inventoryAPI";
+import {ModelsType} from "../../api/inventoryAPI";
 import {getArr, useAppDispatch} from "../../utils/utils";
 import {ModelComponent} from "./ModelComponent/ModelComponent";
 
@@ -18,11 +18,11 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
     const {models} = props;
     const modelsArr = getArr(models);
 
-    const {setCurrModel} = appdataActions;
+    const {setCurrModelId} = appdataActions;
     const dispatch = useAppDispatch();
 
     const onModelClick = (id:string) => {
-        dispatch(setCurrModel({id}))
+        dispatch(setCurrModelId({id}))
     };
 
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -34,7 +34,7 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
     const settings: CoverflowEffectOptions = {
         rotate: 1,
         slideShadows: false,
-        depth: 450
+        depth: 550
     };
 
     return (
@@ -42,9 +42,9 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
             <Swiper
                 effect={"coverflow"}
                 coverflowEffect={settings}
-                slidesPerView={2}
+                slidesPerView={1.3}
                 centeredSlides={true}
-                spaceBetween={-91}
+                spaceBetween={-251}
                 navigation={true}
                 modules={[Navigation, EffectCoverflow]}
 
@@ -60,9 +60,9 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                         />
                         <label htmlFor={'myImage'}>
                             <img
-                                src={require(`../../assets/sidebar/model-thumbnails/silhouette.png`)}
-                                alt={'upload your photo'}
-                                style={{maxWidth: '210px', cursor: 'pointer'}}
+                                src={require(`../../assets/pics/model-chooser-2600/0.png`)}
+                                alt={'upload your'}
+                                style={{maxWidth: '360px', cursor: 'pointer'}}
                             />
                         </label>
                     </div>
@@ -83,5 +83,5 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
 };
 
 type ModelsCarouselPropsType = {
-    models: FetchModelsResponseDataType;
+    models: ModelsType;
 };
