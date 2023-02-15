@@ -5,7 +5,10 @@ const setAppStatus = createAction<{ status: RequestStatusType }>('app/setAppStat
 
 const setAppError = createAction<{ error: string | null }>('app/setAppError')
 
+const setIsAppInitialized = createAction<{ isInit: boolean }>('app/setIsAppInitialized')
+
 export const appCommonActions = {
     setAppStatus,
-    setAppError
+    setAppError,
+    setIsAppInitialized,
 }

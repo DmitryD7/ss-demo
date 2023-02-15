@@ -1,5 +1,5 @@
 import {InventoryItem} from "../../components/InventoryItem/InventoryItem";
-import {ItemGroupType, ItemType, RulesType} from "../../api/inventoryAPI";
+import {ItemType, RulesType} from "../../api/inventoryAPI";
 import {useAppDispatch} from "../../utils/utils";
 import s from "./InventoryPage.module.scss"
 import {appdataActions, appdataSelectors} from "../../app/appdataReducer";
@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 import {CurrentItemType} from "../../app/appdataReducer/appdataReducer";
 
 export const InventoryPage = (props: InventoryPagePropsType) => {
-    const {inventory, group, rules} = props;
+    const {inventory, rules} = props;
     const {selectCurrItems} = appdataSelectors;
     const currItems = useSelector(selectCurrItems);
 
@@ -67,21 +67,21 @@ export const InventoryPage = (props: InventoryPagePropsType) => {
     };
 
     return (
-        <>
-            {group === 'start'
-                && <div className={s.InventoryPage}>
-                    {inventory.map(item => {
-                        return <InventoryItem key={item.id} id={item.id as string} name={item.name}
-                                              onItemClick={onItemClick} item={item}/>
-                    })}
-                </div>
-            }
-        </>
+        <div className={s.InventoryPage}>
+            {inventory.map(item => {
+                return <InventoryItem
+                    key={item.id}
+                    id={item.id as string}
+                    name={item.name}
+                    onItemClick={onItemClick}
+                    item={item}
+                />
+            })}
+        </div>
     );
 }
 
 type InventoryPagePropsType = {
     inventory: Array<ItemType>;
-    group: ItemGroupType | 'start';
     rules: RulesType
 }
