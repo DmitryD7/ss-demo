@@ -9,21 +9,30 @@ import {Navigation, EffectCoverflow} from "swiper";
 
 import "swiper/scss";
 import "swiper/scss/navigation";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {CoverflowEffectOptions} from "swiper/types/modules/effect-coverflow";
 import {appdataActions} from "../../app/appdataReducer";
+import useWindowDimensions from "../../utils/useWindowDimensions";
 
 
 export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
     const {models} = props;
+    const dispatch = useAppDispatch();
+    const {setCurrModelId} = appdataActions;
+
     const modelsArr = getArr(models);
 
-    const {setCurrModelId} = appdataActions;
-    const dispatch = useAppDispatch();
-
-    const onModelClick = (id:string) => {
+    const onModelClick = (id: string) => {
         dispatch(setCurrModelId({id}))
     };
+    const {width} = useWindowDimensions();
+
+    const [isSingleModel, setIsSingleModel] = useState(false);
+    useEffect(() => {
+        if (width < 601) {
+            setIsSingleModel(true);
+        }
+    }, []);
 
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
@@ -42,15 +51,15 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
             <Swiper
                 effect={"coverflow"}
                 coverflowEffect={settings}
-                slidesPerView={1.3}
+                slidesPerView={isSingleModel ? 1 : 1.3}
+                spaceBetween={isSingleModel ? 0 : -251}
                 centeredSlides={true}
-                spaceBetween={-251}
                 navigation={true}
                 modules={[Navigation, EffectCoverflow]}
 
             >
                 <SwiperSlide>
-                    <div  className={s.UploadImg}>
+                    <div className={s.UploadImg}>
                         <input
                             type={'file'}
                             id={'myImage'}
