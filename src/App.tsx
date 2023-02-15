@@ -49,7 +49,6 @@ function App() {
         <div className="App">
             <Navbar/>
             <SideBar models={models}/>
-
             <Routes>
                 <Route path={'/*'} element={<InventoryPage
                     inventory={inventoryItems}

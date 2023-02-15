@@ -1,7 +1,7 @@
 .InventoryPage {
   margin: 89px 9% 0 9%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   @media only screen and (max-width: 1024px) {
     margin: 89px 0 0 0;

@@ -1,0 +1,23 @@
+.ModelCanvas {
+  position: absolute;
+  top: 3rem;
+  bottom: 6.85%;
+  width: 100%;
+  .main {
+    position: relative;
+    max-width: 476px;
+    margin: 0 auto;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    .dressedModel{
+      img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        max-width: 476px;
+      }
+    }
+  }
+}

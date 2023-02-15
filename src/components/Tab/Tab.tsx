@@ -5,13 +5,14 @@ import {ModelsType} from "../../api/inventoryAPI";
 import {ControlsPanel} from "../ControlsPanel/ControlsPanel";
 import {useSelector} from "react-redux";
 import {appdataSelectors} from "../../app/appdataReducer";
-import {CurrentModelComponent} from "../CurrentModelComponent/CurrentModelComponent";
+import {ModelCanvas} from "../ModelCanvas/ModelCanvas";
 
 export const SideBar = (props: SideBarPropsType) => {
     const {models} = props;
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const {selectCurrModel} = appdataSelectors;
+    const {selectCurrModel, selectCurrItems} = appdataSelectors;
 
+    const currItems = useSelector(selectCurrItems);
     const {id, type} = useSelector(selectCurrModel);
 
     const openSidebarHandler = () => {
@@ -29,7 +30,7 @@ export const SideBar = (props: SideBarPropsType) => {
                     <button className={s.ExitBtn} onClick={closeSideBarHandler}></button>
                     {!id && <h2>Select a model</h2>}
                     {id
-                        ? <CurrentModelComponent id={id} type={type}/>
+                        ? <ModelCanvas currItems={currItems} currModelId={id} currModelType={type}/>
                         : <div className={s.ModelsList}>
                             <ModelsCarousel models={models}/>
                         </div>}

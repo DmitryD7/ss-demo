@@ -71,9 +71,10 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                     const id = Object.keys(model)[0];
                     // @ts-ignore
                     const size = model[id].size;
+                    const prewarps = model[id].prewarps;
                     return (
                         <SwiperSlide key={id}>
-                            <ModelComponent id={id} size={size} onModelClick={onModelClick}/>
+                            <ModelComponent id={id} size={size} onModelClick={onModelClick} prewarps={prewarps}/>
                         </SwiperSlide>
                     );
                 })}

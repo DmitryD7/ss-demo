@@ -30,6 +30,7 @@ export interface InventoryItemsResponseType {
 
 export type ModelType = {
     size: string
+    prewarps?: boolean
 }
 
 export interface ModelsType {

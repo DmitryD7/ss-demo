@@ -1,9 +1,11 @@
 {
 	"1": {
-		"size": "?"
+		"size": "?",
+		"prewarps": true
 	},
 	"2": {
-		"size": "?"
+		"size": "?",
+		"prewarps": true
 	},
 	"3": {
 		"size": "?"
