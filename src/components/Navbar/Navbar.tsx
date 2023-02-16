@@ -15,6 +15,7 @@ export const Navbar = (props: NavbarPropsType) => {
 
     const handleClick = (item: string) => {
         setActiveItem(item !== activeItem ? item : "");
+        setIsOpen(false)
         navigate(item)
     };
 
