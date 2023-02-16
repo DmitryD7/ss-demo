@@ -32,6 +32,8 @@ export const SideBar = (props: SideBarPropsType) => {
     const onSwitchModelHandler = useCallback(() => {
         dispatch(setCurrModelId({id: ''}));
         dispatch(setCurrModelIsCustom({isCustom: false}));
+        // @ts-ignore
+        window['fitpic'].unmount();
     }, [dispatch, setCurrModelId, setCurrModelIsCustom]);
 
     return (
