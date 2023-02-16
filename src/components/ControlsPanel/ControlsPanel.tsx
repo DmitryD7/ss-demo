@@ -23,10 +23,9 @@ export const ControlsPanel = () => {
 
     return (
         <div className={s.ControlsPanel}>
-            <div className={`${s.switch_model_btn} ${!currModelId && s.hidden}`} onClick={onSwitchModelHandler}>Switch<br/>Model</div>
-            <div className={`${s.add_cart_btn} ${!currItems || !currModelId && s.hidden}`}>Add to Cart</div>
+            <div className={`${s.switch_model_btn} ${!currModelId.id && s.hidden}`} onClick={onSwitchModelHandler}>Switch<br/>Model</div>
+            <div className={`${s.add_cart_btn} ${currItems.length <= 0 && s.hidden}`}>Add to Cart</div>
             <div className={`${s.remove_btn} ${!currItems[0]?.name && s.hidden}`} onClick={onRemoveItemsHandler}>Remove</div>
-            {/*<div className={s.cart}></div>*/}
         </div>
     );
 }

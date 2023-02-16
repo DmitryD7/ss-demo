@@ -25,22 +25,22 @@ export const Navbar = (props: NavbarPropsType) => {
                 className={`${s.burger} ${isOpen && s.openedBurger}`}
             ></button>
             <button className={s.button}
-                    style={{color: '#0d0d0e', fontWeight: '700'}}
+                    style={{color: '#0d0d0e', fontWeight: '700', fontSize: '24px'}}
                     onClick={() => navigate('/')}
             >
                 YOUR BRAND
             </button>
             <div className={`${s.navbar_menu} ${isOpen && s.openedDropdowns}`}>
                 {menuItems.map((item, index) => <button
-                    key={item+index}
-                    className={`${s.button} ${activeItem === item && s.activeBtn}`}
-                    onClick={() => handleClick(item)}
-                >{item.toUpperCase()}</button>)}
+                    key={item.group+index}
+                    className={`${s.button} ${activeItem === item.group && s.activeBtn}`}
+                    onClick={() => handleClick(item.group)}
+                >{item.name}</button>)}
             </div>
         </nav>
     );
 }
 
 type NavbarPropsType = {
-    menuItems: string[];
+    menuItems: Array<{group: string, name: string}>;
 }

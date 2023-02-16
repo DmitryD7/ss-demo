@@ -1,18 +1,12 @@
 @font-face {
-  font-family: 'AvenirNext', Sans-serif;
-  src: url('./assets/fonts/AvenirNext-Regular.woff2') format('woff2');
+  font-family: 'AvenirNext';
   font-weight: normal;
+  src: url('https://pubstylescan.blob.core.windows.net/000001/fonts/AvenirNext-Regular.woff2') format('woff2');
 }
-
 @font-face {
-  font-family: 'AvenirNext', Sans-serif;
-  src: url('./assets/fonts/AvenirNext-Bold.woff2') format('woff2');
+  font-family: 'AvenirNext';
   font-weight: bold;
-}
-@font-face {
-  font-family: 'AvenirNext', Sans-serif;
-  src: url('./assets/fonts/AvenirNext-Medium.woff2') format('woff2');
-  font-style: auto;
+  src: url('https://pubstylescan.blob.core.windows.net/000001/fonts/AvenirNext-Bold.woff2') format('woff2');
 }
 
 body {

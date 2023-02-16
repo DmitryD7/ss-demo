@@ -1,8 +1,26 @@
 .ModelsCarousel {
-  --swiper-navigation-color: #363636FC
-}
+  --swiper-navigation-color: #363636FC;
+  .mySwiper{
+    :global(.swiper-button-prev) {
+      right: var(--swiper-navigation-sides-offset, 10px);
+      left: auto;
+      &:after {
+        content: 'next';
+      }
+    }
+    :global(.swiper-button-next) {
+      left: var(--swiper-navigation-sides-offset, 10px);
+      right: auto;
+      &:after {
+        content: 'prev';
+      }
+    }
+  }
 
-.UploadImg {
-  margin: 0 auto;
-  max-width: 360px;
+  height: 100vh;
+  width: 100%;
+  .UploadImg {
+    margin-left: 50px;
+    width: 100%;
+  }
 }

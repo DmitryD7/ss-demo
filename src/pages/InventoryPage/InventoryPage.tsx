@@ -8,8 +8,9 @@ import {CurrentItemType} from "../../app/appdataReducer/appdataReducer";
 
 export const InventoryPage = (props: InventoryPagePropsType) => {
     const {inventory, rules} = props;
-    const {selectCurrItems} = appdataSelectors;
+    const {selectCurrItems, selectCurrModel} = appdataSelectors;
     const currItems = useSelector(selectCurrItems);
+    const currModel = useSelector(selectCurrModel);
 
     const {setCurrItem, setCurrModelType} = appdataActions;
     const dispatch = useAppDispatch();
@@ -62,8 +63,10 @@ export const InventoryPage = (props: InventoryPagePropsType) => {
     const onItemClick = (item: ItemType) => {
         const {items, model} = merge_items(currItems, [item]);
         dispatch(setCurrItem(items));
-        dispatch(setCurrModelType({type: model}))
-        onSidebarOpen()
+        dispatch(setCurrModelType({type: model}));
+        onSidebarOpen();
+        // @ts-ignore
+        currModel.isCustom && window['fitpic'].setItem(item.id);
     };
 
     return (

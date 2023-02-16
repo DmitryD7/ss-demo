@@ -5,7 +5,7 @@ export const ModelComponent = (props: ModelComponentPropsType) => {
     const {id, size, onModelClick, prewarps} = props;
 
     const getModelImg = useCallback(() => {
-        return <img src={require(`../../../assets/pics/model-chooser-2600/${id}.png`)} alt={size}/>
+        return <img src={require(`../../../assets/pics/model-chooser-1950/${id}.png`)} alt={size}/>
     }, [id, size]);
 
     const onModelClickHandler = () => {

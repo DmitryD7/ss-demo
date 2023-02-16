@@ -93,6 +93,9 @@ export const appDataSlice = createSlice({
         setCurrModelType: (state,action: PayloadAction<{type: 'nude' | 'covered'}>) => {
             state.currModel.type = action.payload.type;
         },
+        setCurrModelIsCustom: (state,action: PayloadAction<{isCustom: boolean}>) => {
+            state.currModel.isCustom = action.payload.isCustom;
+        },
     },
     extraReducers: builder => {
         builder.addCase(fetchInventoryData.fulfilled, (state, action) => {
@@ -118,4 +121,5 @@ export type CurrentItemType = {
 export type CurrentModelType = {
     id: string
     type: 'nude' | 'covered'
+    isCustom?: boolean
 }

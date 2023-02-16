@@ -4,29 +4,29 @@ import {getArr, useAppDispatch} from "../../utils/utils";
 import {ModelComponent} from "./ModelComponent/ModelComponent";
 
 import {Swiper, SwiperSlide} from "swiper/react";
-
-import {Navigation, EffectCoverflow} from "swiper";
-
+import {EffectCoverflow, Navigation} from "swiper";
 import "swiper/scss";
 import "swiper/scss/navigation";
+
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {CoverflowEffectOptions} from "swiper/types/modules/effect-coverflow";
 import {appdataActions} from "../../app/appdataReducer";
 import useWindowDimensions from "../../utils/useWindowDimensions";
+import {NavigationOptions} from "swiper/types/modules/navigation";
 
 
 export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
     const {models} = props;
     const dispatch = useAppDispatch();
-    const {setCurrModelId} = appdataActions;
+    const {setCurrModelId, setCurrModelIsCustom} = appdataActions;
 
     const modelsArr = getArr(models);
 
     const onModelClick = (id: string) => {
         dispatch(setCurrModelId({id}))
     };
-    const {width} = useWindowDimensions();
 
+    const {width} = useWindowDimensions();
     const [isSingleModel, setIsSingleModel] = useState(false);
     useEffect(() => {
         if (width < 601) {
@@ -34,13 +34,16 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
         }
     }, []);
 
-    const [selectedImage, setSelectedImage] = useState<File | null>(null);
-
     const onUploadPhotoHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        e.target.files && setSelectedImage(e.target.files[0])
+        dispatch(setCurrModelIsCustom({isCustom: true}));
+        const container = document.querySelector('#SideBar_Source_Tab');
+        // @ts-ignore
+        window['fitpic'].setModel(e.target.files[0]);
+        // @ts-ignore
+        window['fitpic'].setContainer(container);
     };
 
-    const settings: CoverflowEffectOptions = {
+    const settingsCoverflow: CoverflowEffectOptions = {
         rotate: 1,
         slideShadows: false,
         depth: 550
@@ -50,13 +53,17 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
         <div className={s.ModelsCarousel}>
             <Swiper
                 effect={"coverflow"}
-                coverflowEffect={settings}
+                coverflowEffect={settingsCoverflow}
                 slidesPerView={isSingleModel ? 1 : 1.3}
                 spaceBetween={isSingleModel ? 0 : -251}
                 centeredSlides={true}
                 navigation={true}
                 modules={[Navigation, EffectCoverflow]}
-
+                // grabCursor={true}
+                centeredSlidesBounds={true}
+                initialSlide={1}
+                slideToClickedSlide={true}
+                className={s.mySwiper}
             >
                 <SwiperSlide>
                     <div className={s.UploadImg}>
@@ -69,9 +76,9 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                         />
                         <label htmlFor={'myImage'}>
                             <img
-                                src={require(`../../assets/pics/model-chooser-2600/0.png`)}
+                                src={require(`../../assets/pics/model-chooser-1950/0.png`)}
                                 alt={'upload your'}
-                                style={{maxWidth: '360px', cursor: 'pointer'}}
+                                style={{width: '85%', cursor: 'pointer'}}
                             />
                         </label>
                     </div>

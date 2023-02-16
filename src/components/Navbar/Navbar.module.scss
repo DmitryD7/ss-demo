@@ -9,6 +9,7 @@
   color: #fff;
 
   button {
+    font-family: 'AvenirNext', Sans-serif;
     border: 0;
     padding: 0;
     background: transparent;
@@ -17,7 +18,7 @@
     color: inherit;
     font-size: 20px;
     @media (width >= 500px) {
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 

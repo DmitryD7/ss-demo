@@ -45,14 +45,38 @@ function App() {
 
     const getGroupItems = (group: ItemGroupType) => inventoryItems.filter(i => i.group === group);
 
+    const mappedGroups: Array<{ group: string, name: string }> = [
+        {
+            group: '',
+            name: 'ALL',
+        },
+        {
+            group: 'top',
+            name: 'TOPS',
+        },
+        {
+            group: 'bot',
+            name: 'BOTTOMS',
+        },
+        {
+            group: 'feet',
+            name: 'SHOES',
+        },
+        {
+            group: 'bag',
+            name: 'BAGS',
+        },
+    ];
+
     return (
         <div className="App">
             {isAppInit
                 ? <>
-                    <Navbar menuItems={rules.order}/>
+                    <Navbar menuItems={mappedGroups}/>
                     <SideBar models={models}/>
                     <Routes>
-                        <Route path={'/*'} element={<InventoryPage inventory={inventoryItems} rules={rules}/>}/>
+                        <Route path={`/*`}
+                               element={<InventoryPage inventory={inventoryItems} rules={rules}/>}/>
                         {
                             rules.order.map((g: any, i) => (
                                 <Route

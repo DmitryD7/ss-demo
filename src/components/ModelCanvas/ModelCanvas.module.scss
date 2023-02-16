@@ -3,21 +3,27 @@
   top: 3rem;
   bottom: 6.85%;
   width: 100%;
+
   .main {
     position: relative;
-    max-width: 476px;
-    margin: 0 auto;
+    height: 100%;
+    //max-width: 476px;
 
+    background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
 
-    .dressedModel{
+    .dressedModel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       img {
         position: absolute;
-        top: 0;
-        right: 0;
-        //max-width: 476px;
-        max-width: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
     }
   }

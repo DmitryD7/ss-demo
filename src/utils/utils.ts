@@ -1,5 +1,6 @@
 import {useDispatch} from "react-redux";
 import {AppDispatchType} from "../app/types";
+import {useEffect} from "react";
 
 export const useAppDispatch = () => useDispatch<AppDispatchType>();
 
@@ -14,3 +15,31 @@ export const getArr = (obj: any) => {
     }
     return arr;
 };
+
+export const useImportScript = (resourceUrl: string) => {
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = resourceUrl;
+        script.async = true;
+        script.defer = true;
+
+        document.body.appendChild(script);
+        return () => {
+            document.body.removeChild(script);
+        }
+    }, [resourceUrl]);
+};
+
+export const useOutsideAlerter = (ref: any, onCloseFunc: any) => {
+    useEffect(() => {
+        function handleClickOutside(event: any) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                onCloseFunc()
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [ref]);
+}
