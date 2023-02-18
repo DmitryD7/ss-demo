@@ -1,6 +1,11 @@
 .ModelsCarousel {
+  height: 100vh;
+  width: 100%;
   --swiper-navigation-color: #363636FC;
   .mySwiper{
+    width: 100%;
+    height: 100%;
+
     :global(.swiper-button-prev) {
       right: var(--swiper-navigation-sides-offset, 10px);
       left: auto;
@@ -16,11 +21,8 @@
       }
     }
   }
-
-  height: 100vh;
-  width: 100%;
   .UploadImg {
-    margin-left: 50px;
-    width: 100%;
+    margin-left: 5%;
+    height: 90vh;
   }
 }

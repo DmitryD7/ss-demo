@@ -2,11 +2,11 @@ import s from './ModelComponent.module.scss'
 import React, {useCallback} from "react";
 
 export const ModelComponent = (props: ModelComponentPropsType) => {
-    const {id, size, onModelClick, prewarps} = props;
+    const {id, onModelClick, prewarps} = props;
 
     const getModelImg = useCallback(() => {
-        return <img src={require(`../../../assets/pics/model-chooser-1950/${id}.png`)} alt={size}/>
-    }, [id, size]);
+        return <img src={require(`../../../assets/pics/model-chooser-1950/${id}.png`)} alt={`model-${id}`}/>
+    }, [id]);
 
     const onModelClickHandler = () => {
         prewarps && onModelClick(id)
@@ -14,7 +14,6 @@ export const ModelComponent = (props: ModelComponentPropsType) => {
     return (
         <div className={s.ModelComponent} onClick={onModelClickHandler}>
             {getModelImg()}
-            {/*<span>{size}</span>*/}
         </div>
     );
 };

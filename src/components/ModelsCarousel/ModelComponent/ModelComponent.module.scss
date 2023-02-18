@@ -1,14 +1,15 @@
 .ModelComponent {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0;
   &:hover {
     cursor: pointer;
   }
   img {
-    //max-width: 390px;
-    width: 85%;
-    margin-bottom: 9px;
+    //max-width: 100%;
+    //width: 90%;
+    height: 90vh;
   }
 }

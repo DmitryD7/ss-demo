@@ -22,9 +22,11 @@ export const SideBar = (props: SideBarPropsType) => {
 
     const openSidebarHandler = () => {
         setIsSidebarOpen(!isSidebarOpen);
+        window.document.body.style.overflow = isSidebarOpen ? 'auto' : 'hidden';
     };
     const closeSideBarHandler = () => {
         setIsSidebarOpen(false);
+        document.body.style.overflow = 'auto';
     };
 
     useOutsideAlerter(sidebar, () => setIsSidebarOpen(false));

@@ -35,11 +35,12 @@ export const useOutsideAlerter = (ref: any, onCloseFunc: any) => {
         function handleClickOutside(event: any) {
             if (ref.current && !ref.current.contains(event.target)) {
                 onCloseFunc()
+                document.body.style.overflow = 'auto';
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [ref]);
+    }, [ref, onCloseFunc]);
 }

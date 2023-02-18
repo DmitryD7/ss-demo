@@ -12,7 +12,6 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import {CoverflowEffectOptions} from "swiper/types/modules/effect-coverflow";
 import {appdataActions} from "../../app/appdataReducer";
 import useWindowDimensions from "../../utils/useWindowDimensions";
-import {NavigationOptions} from "swiper/types/modules/navigation";
 
 
 export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
@@ -59,11 +58,10 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                 centeredSlides={true}
                 navigation={true}
                 modules={[Navigation, EffectCoverflow]}
-                // grabCursor={true}
                 centeredSlidesBounds={true}
                 initialSlide={1}
-                slideToClickedSlide={true}
                 className={s.mySwiper}
+                autoHeight={true}
             >
                 <SwiperSlide>
                     <div className={s.UploadImg}>
@@ -78,7 +76,7 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                             <img
                                 src={require(`../../assets/pics/model-chooser-1950/0.png`)}
                                 alt={'upload your'}
-                                style={{width: '85%', cursor: 'pointer'}}
+                                style={{width: '100%', cursor: 'pointer'}}
                             />
                         </label>
                     </div>
