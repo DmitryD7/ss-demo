@@ -36,6 +36,7 @@ export const useOutsideAlerter = (ref: any, onCloseFunc: any) => {
             if (ref.current && !ref.current.contains(event.target)) {
                 onCloseFunc()
                 document.body.style.overflow = 'auto';
+                window.document.body.style.paddingRight = '0';
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -43,4 +44,4 @@ export const useOutsideAlerter = (ref: any, onCloseFunc: any) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [ref, onCloseFunc]);
-}
+};

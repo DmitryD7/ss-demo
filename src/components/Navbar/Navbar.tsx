@@ -1,8 +1,8 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import s from './Navbar.module.scss'
 import {useNavigate} from "react-router-dom";
 
-export const Navbar = (props: NavbarPropsType) => {
+export const Navbar = React.memo((props: NavbarPropsType) => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeItem, setActiveItem] = useState<string>("");
     const navigate = useNavigate();
@@ -40,7 +40,7 @@ export const Navbar = (props: NavbarPropsType) => {
             </div>
         </nav>
     );
-}
+})
 
 type NavbarPropsType = {
     menuItems: Array<{group: string, name: string}>;

@@ -1,5 +1,5 @@
 .navbar {
-  z-index: 1;
+  z-index: 5;
   left: 2%;
   display: flex;
   align-items: stretch;
@@ -9,7 +9,7 @@
   color: #fff;
 
   button {
-    font-family: 'AvenirNext', Sans-serif;
+    font-family: 'AvenirNext', sans-serif;
     border: 0;
     padding: 0;
     background: transparent;

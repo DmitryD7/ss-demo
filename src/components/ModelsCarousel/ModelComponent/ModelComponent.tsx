@@ -1,22 +1,23 @@
 import s from './ModelComponent.module.scss'
-import React, {useCallback} from "react";
+import React from "react";
 
-export const ModelComponent = (props: ModelComponentPropsType) => {
+export const ModelComponent = React.memo((props: ModelComponentPropsType) => {
     const {id, onModelClick, prewarps} = props;
 
-    const getModelImg = useCallback(() => {
+    const getModelImg = () => {
         return <img src={require(`../../../assets/pics/model-chooser-1950/${id}.png`)} alt={`model-${id}`}/>
-    }, [id]);
+    };
 
     const onModelClickHandler = () => {
         prewarps && onModelClick(id)
     };
+
     return (
         <div className={s.ModelComponent} onClick={onModelClickHandler}>
             {getModelImg()}
         </div>
     );
-};
+});
 
 type ModelComponentPropsType = {
     id: string

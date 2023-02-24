@@ -2,15 +2,15 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {handleAsyncServerAppError, handleAsyncServerNetworkError, ThunkError} from "../../utils/errorUtils";
 import {appCommonActions} from "../applicationCommonActions";
 import {
-    InventoryItemsResponseType,
-    ModelsType,
     inventoryAPI,
-    RulesType,
+    InventoryItemsResponseType,
+    ItemGroupType,
     ItemType,
-    ItemGroupType
+    ModelsType,
+    RulesType
 } from "../../api/inventoryAPI";
 
-const {setAppStatus, setAppError} = appCommonActions;
+const {setAppStatus} = appCommonActions;
 
 const getItems = (items: InventoryItemsResponseType) => {
     const overwrittenItems = [];
@@ -30,7 +30,6 @@ const fetchInventoryData = createAsyncThunk<InventoryItemsResponseType, undefine
         const res = await inventoryAPI.fetchItems();
         if (res.data) {
             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}));
-            thunkAPI.dispatch(setAppError({error: null}));
             // const items = getItems(res.data);
             // return items;
             return res.data
@@ -48,7 +47,6 @@ const fetchModelsData = createAsyncThunk<ModelsType, undefined, ThunkError>('app
         const res = await inventoryAPI.fetchModels();
         if (res.data) {
             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}));
-            thunkAPI.dispatch(setAppError({error: null}));
             return res.data;
         } else {
             return handleAsyncServerAppError(res.data, thunkAPI);
@@ -64,7 +62,6 @@ const fetchItemRules = createAsyncThunk<RulesType, undefined, ThunkError>('appda
         const res = await inventoryAPI.fetchRules();
         if (res.data) {
             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}));
-            thunkAPI.dispatch(setAppError({error: null}));
             return res.data;
         } else {
             return handleAsyncServerAppError(res.data, thunkAPI);
@@ -84,16 +81,16 @@ export const appDataSlice = createSlice({
         currModel: {} as CurrentModelType,
     },
     reducers: {
-        setCurrItem: (state,action) => {
+        setCurrItem: (state, action) => {
             state.currItems = action.payload;
         },
-        setCurrModelId: (state,action: PayloadAction<{id: string}>) => {
+        setCurrModelId: (state, action: PayloadAction<{ id: string }>) => {
             state.currModel.id = action.payload.id;
         },
-        setCurrModelType: (state,action: PayloadAction<{type: 'nude' | 'covered'}>) => {
+        setCurrModelType: (state, action: PayloadAction<{ type: 'nude' | 'covered' }>) => {
             state.currModel.type = action.payload.type;
         },
-        setCurrModelIsCustom: (state,action: PayloadAction<{isCustom: boolean}>) => {
+        setCurrModelIsCustom: (state, action: PayloadAction<{ isCustom: boolean }>) => {
             state.currModel.isCustom = action.payload.isCustom;
         },
     },

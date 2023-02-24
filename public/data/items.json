@@ -1,18 +1,14 @@
 {
-	"1": {
-		"name": "Gold Pumps",
-		"group": "feet"
+	"4": {
+		"name": "Hunza G One-shoulder Vest",
+		"group": "top"
 	},
 	"2": {
 		"name": "Alexander McQueen Floral-lace Cropped Top",
 		"group": "top"
 	},
-	"3": {
-		"name": "Celine Medium Classic Bag in Box Calfskin Black",
-		"group": "bag"
-	},
-	"4": {
-		"name": "Hunza G One-shoulder Vest",
+	"8": {
+		"name": "The Andamane Crop Faux-leather Bandeau Top",
 		"group": "top"
 	},
 	"5": {
@@ -27,8 +23,12 @@
 		"name": "Remain Pleated Denim Skirt",
 		"group": "bot"
 	},
-	"8": {
-		"name": "The Andamane Crop Faux-leather Bandeau Top",
-		"group": "top"
+	"3": {
+		"name": "Celine Medium Classic Bag in Box Calfskin Black",
+		"group": "bag"
+	},
+	"1": {
+		"name": "Gold Pumps",
+		"group": "feet"
 	}
 }

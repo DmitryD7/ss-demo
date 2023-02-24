@@ -5,8 +5,8 @@ import {ModelsType} from "../../api/inventoryAPI";
 import {ControlsPanel} from "../ControlsPanel/ControlsPanel";
 import {useSelector} from "react-redux";
 import {appdataActions, appdataSelectors} from "../../app/appdataReducer";
-import {ModelCanvas} from "../ModelCanvas/ModelCanvas";
 import {useAppDispatch, useOutsideAlerter} from "../../utils/utils";
+import {ModelCanvasDraw} from '../ModelCanvasDraw/ModelCanvasDraw';
 
 export const SideBar = (props: SideBarPropsType) => {
     const {models} = props;
@@ -22,11 +22,14 @@ export const SideBar = (props: SideBarPropsType) => {
 
     const openSidebarHandler = () => {
         setIsSidebarOpen(!isSidebarOpen);
-        window.document.body.style.overflow = isSidebarOpen ? 'auto' : 'hidden';
+        window.document.body.style.overflowY = isSidebarOpen ? 'auto' : 'hidden';
+        window.document.body.style.paddingRight = isSidebarOpen ? '0' : '17px';
+        // window.document.body.clientWidth
     };
     const closeSideBarHandler = () => {
         setIsSidebarOpen(false);
         document.body.style.overflow = 'auto';
+        window.document.body.style.paddingRight = '0';
     };
 
     useOutsideAlerter(sidebar, () => setIsSidebarOpen(false));
@@ -48,10 +51,12 @@ export const SideBar = (props: SideBarPropsType) => {
                     ref={sidebar}
                 >
                     <button className={s.ExitBtn} onClick={closeSideBarHandler}></button>
+                    {id && <button className={s.New_style_btn} onClick={closeSideBarHandler}>+ New Style</button>}
                     {!isCustom && <>
                         {!id && <h2>Select a model</h2>}
                         {id
-                            ? <ModelCanvas currItems={currItems} currModelId={id} currModelType={type}/>
+                            // ? <ModelCanvas currItems={currItems} currModelId={id} currModelType={type}/>
+                            ? <ModelCanvasDraw currItems={currItems} currModelId={id} currModelType={type}/>
                             : <div className={s.ModelsList}>
                                 <ModelsCarousel models={models}/>
                             </div>}

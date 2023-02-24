@@ -1,45 +1,53 @@
 import s from './ModelCanvas.module.scss'
 import React from "react";
 import {CurrentItemType} from "../../app/appdataReducer/appdataReducer";
+import {CurrItem} from './CurrItem/CurrItem';
 
-export const ModelCanvas = (props: InventoryItemPropsType) => {
+export const ModelCanvas = React.memo((props: InventoryItemPropsType) => {
     const {currItems, currModelId, currModelType} = props;
 
-    const getImg = (id: string) => {
-        return require('../../assets/pics/prewarps/' + `${id}/${currModelId}.png`);
+    // const getModelImg = () => {
+    //     return require(`../../assets/pics/model-${currModelType ? currModelType : 'covered'}/${currModelId}.png`);
+    // };
+    const getModelImg = (currModelTypes: "nude" | "covered") => {
+        return require(`../../assets/pics/model-${currModelTypes}/${currModelId}.png`);
     };
 
-    const getModelImg = () => {
-        return require(`../../assets/pics/model-${currModelType ? currModelType : 'covered'}/${currModelId}.png`);
-    };
+    const nudeModel = getModelImg('nude');
+    const coveredModel = getModelImg('covered');
 
     const style = {
-        backgroundImage: `url(${getModelImg()})`,
-    }
+        backgroundImage: `url(${currModelType === 'nude' ? nudeModel : coveredModel})`,
+    };
 
     return (
         <div className={s.ModelCanvas}>
             <div className={s.main} style={style}>
                 <div style={{visibility: 'hidden'}}><img
-                    src={getModelImg()}
+                    src={nudeModel}
                     alt={''}
                     className={s.model_img}
                 /></div>
                 <div className={s.dressedModel}>
                     {currItems && currItems
-                        .map(i => {
-                            const img = getImg(i.id!)
-                            return <img key={i.id} src={img} alt=""/>
-                        })
+                        .map(i => <CurrItem key={i.id} itemId={i.id!} modelId={currModelId}/>)
                     }
                 </div>
             </div>
         </div>
     );
-}
+})
 
 type InventoryItemPropsType = {
     currItems: CurrentItemType[]
     currModelId: string
     currModelType: "nude" | "covered"
 }
+
+// const CurrItem = React.memo((props: {itemId: string, modelId: string}) => {
+//     const {itemId, modelId} = props;
+//
+//     const img = require(`../../assets/pics/prewarps/${itemId}/${modelId}.png`);
+//
+//     return <img src={img} alt=""/>
+// });

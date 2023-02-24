@@ -4,12 +4,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   &:hover {
     cursor: pointer;
   }
   img {
     //max-width: 100%;
     //width: 90%;
-    height: 90vh;
+    height: 87vh;
   }
 }

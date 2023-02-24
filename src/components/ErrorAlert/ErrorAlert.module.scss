@@ -1,0 +1,18 @@
+.ErrorAlert {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -95vh;
+
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+  width: fit-content;
+  max-width: 360px;
+
+  color: #D8000C;
+  background-color: #FFBABA;
+
+  &:hover{
+    cursor: pointer;
+  }
+}

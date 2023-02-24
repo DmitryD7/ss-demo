@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import './App.css';
 import {Route, Routes} from 'react-router-dom';
 import {Navbar} from "./components/Navbar/Navbar";
 import {SideBar} from "./components/Tab/Tab";
@@ -10,6 +9,9 @@ import {InventoryPage} from "./pages/InventoryPage/InventoryPage";
 import {ItemGroupType} from "./api/inventoryAPI";
 import {appCommonActions} from "./app/applicationCommonActions";
 import {appSelectors} from "./app/appReducer";
+import Loader from "./assets/loader.svg";
+import s from './App.module.scss';
+import {ErrorAlert} from "./components/ErrorAlert/ErrorAlert";
 
 
 function App() {
@@ -19,12 +21,14 @@ function App() {
     const {setIsAppInitialized} = appCommonActions;
 
     const {selectInventoryItems, selectModels, selectRules} = appdataSelectors;
-    const {selectIsAppInit} = appSelectors;
+    const {selectIsAppInit, selectStatus, selectError} = appSelectors;
 
     const inventoryItems = useSelector(selectInventoryItems);
     const models = useSelector(selectModels);
     const rules = useSelector(selectRules);
     const isAppInit = useSelector(selectIsAppInit);
+    const status = useSelector(selectStatus);
+    const error = useSelector(selectError);
 
     useEffect(() => {
         dispatch(fetchInventoryData());
@@ -59,40 +63,47 @@ function App() {
             name: 'BOTTOMS',
         },
         {
-            group: 'feet',
-            name: 'SHOES',
-        },
-        {
             group: 'bag',
             name: 'BAGS',
+        },
+        {
+            group: 'feet',
+            name: 'SHOES',
         },
     ];
 
     return (
-        <div className="App">
+        <div className={s.App}>
             {isAppInit
                 ? <>
                     <Navbar menuItems={mappedGroups}/>
                     <SideBar models={models}/>
-                    <Routes>
-                        <Route path={`/*`}
-                               element={<InventoryPage inventory={inventoryItems} rules={rules}/>}/>
-                        {
-                            rules.order.map((g: any, i) => (
-                                <Route
-                                    key={g + i}
-                                    path={`/${g}`}
-                                    element={<InventoryPage
-                                        inventory={getGroupItems(g)}
-                                        rules={rules}
-                                    />}
-                                />
-                            ))
-                        }
-                    </Routes>
+                    {status === 'loading'
+                        ? <div className={s.loader}>
+                            <img src={Loader} alt="loader"/>
+                        </div>
+                        : <Routes>
+                            <Route path={`/*`}
+                                   element={<InventoryPage inventory={inventoryItems} rules={rules}/>}/>
+                            {
+                                rules.order.map((g: any, i) => (
+                                    <Route
+                                        key={g + i}
+                                        path={`/${g}`}
+                                        element={<InventoryPage
+                                            inventory={getGroupItems(g)}
+                                            rules={rules}
+                                        />}
+                                    />
+                                ))
+                            }
+                        </Routes>}
                 </>
-                : <div>Loading</div>
+                : <div className={s.loader}>
+                    <img src={Loader} alt="loader"/>
+                </div>
             }
+            {error && <ErrorAlert/>}
         </div>
     );
 }

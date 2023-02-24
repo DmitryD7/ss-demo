@@ -8,7 +8,7 @@ import {EffectCoverflow, Navigation} from "swiper";
 import "swiper/scss";
 import "swiper/scss/navigation";
 
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useCallback, useEffect, useState} from "react";
 import {CoverflowEffectOptions} from "swiper/types/modules/effect-coverflow";
 import {appdataActions} from "../../app/appdataReducer";
 import useWindowDimensions from "../../utils/useWindowDimensions";
@@ -21,12 +21,13 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
 
     const modelsArr = getArr(models);
 
-    const onModelClick = (id: string) => {
+    const onModelClick = useCallback((id: string) => {
         dispatch(setCurrModelId({id}))
-    };
+    }, [dispatch, setCurrModelId]);
 
     const {width} = useWindowDimensions();
     const [isSingleModel, setIsSingleModel] = useState(false);
+
     useEffect(() => {
         if (width < 601) {
             setIsSingleModel(true);
@@ -53,8 +54,10 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
             <Swiper
                 effect={"coverflow"}
                 coverflowEffect={settingsCoverflow}
-                slidesPerView={isSingleModel ? 1 : 1.3}
-                spaceBetween={isSingleModel ? 0 : -251}
+                // slidesPerView={isSingleModel ? 1 : 1.3}
+                // spaceBetween={isSingleModel ? 50 : -251}
+                slidesPerView={isSingleModel ? 1.1 : 1.3}
+                spaceBetween={isSingleModel ? -111 : -251}
                 centeredSlides={true}
                 navigation={true}
                 modules={[Navigation, EffectCoverflow]}
@@ -76,7 +79,7 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                             <img
                                 src={require(`../../assets/pics/model-chooser-1950/0.png`)}
                                 alt={'upload your'}
-                                style={{width: '100%', cursor: 'pointer'}}
+                                style={{height: '87vh', cursor: 'pointer', }}
                             />
                         </label>
                     </div>

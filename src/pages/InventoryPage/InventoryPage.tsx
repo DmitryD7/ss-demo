@@ -5,21 +5,22 @@ import s from "./InventoryPage.module.scss"
 import {appdataActions, appdataSelectors} from "../../app/appdataReducer";
 import {useSelector} from "react-redux";
 import {CurrentItemType} from "../../app/appdataReducer/appdataReducer";
+import {useCallback} from "react";
 
 export const InventoryPage = (props: InventoryPagePropsType) => {
     const {inventory, rules} = props;
-    const {selectCurrItems, selectCurrModel} = appdataSelectors;
-    const currItems = useSelector(selectCurrItems);
-    const currModel = useSelector(selectCurrModel);
-
-    const {setCurrItem, setCurrModelType} = appdataActions;
     const dispatch = useAppDispatch();
 
-    const orderEntries = rules.order?.map((group, i) => [group, i]);
-    const order = orderEntries && Object.fromEntries(orderEntries);
+    const {selectCurrItems, selectCurrModel} = appdataSelectors;
+    const currItems = useSelector(selectCurrItems);
 
-    function merge_items(prev_items: Array<CurrentItemType>, new_items: Array<CurrentItemType> = []) {
+    const currModel = useSelector(selectCurrModel);
+    const {setCurrItem, setCurrModelType} = appdataActions;
+
+    const merge_items = useCallback((prev_items: Array<CurrentItemType>, new_items: Array<CurrentItemType> = []) => {
         let grouped = {};
+        const order = Object.fromEntries(rules.order?.map((group, i) => [group, i]));
+
         for (let item of prev_items) {
             // @ts-ignore
             grouped[item.group] = item;
@@ -43,7 +44,7 @@ export const InventoryPage = (props: InventoryPagePropsType) => {
             return order[a.group] - order[b.group];
         });
         return {items, model};
-    }
+    }, [rules]);
 
     const onSidebarOpen = () => {
         const mouseClickEvents = ['mousedown', 'click', 'mouseup'];
@@ -58,31 +59,29 @@ export const InventoryPage = (props: InventoryPagePropsType) => {
                 })
             )
         );
-    }
+    };
 
-    const onItemClick = (item: ItemType) => {
+    const onItemClick = useCallback((item: ItemType) => {
         const {items, model} = merge_items(currItems, [item]);
         dispatch(setCurrItem(items));
         dispatch(setCurrModelType({type: model}));
         onSidebarOpen();
         // @ts-ignore
         currModel.isCustom && window['fitpic'].setItem(item.id);
-    };
+    }, [currItems, currModel.isCustom, dispatch, merge_items, setCurrItem, setCurrModelType]);
 
     return (
         <div className={s.InventoryPage}>
             {inventory.map(item => {
                 return <InventoryItem
                     key={item.id}
-                    id={item.id as string}
-                    name={item.name}
                     onItemClick={onItemClick}
                     item={item}
                 />
             })}
         </div>
     );
-}
+};
 
 type InventoryPagePropsType = {
     inventory: Array<ItemType>;

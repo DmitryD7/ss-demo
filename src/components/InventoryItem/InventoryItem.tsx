@@ -2,8 +2,9 @@ import s from './InventoryItem.module.scss'
 import React, {useCallback} from "react";
 import {ItemType} from "../../api/inventoryAPI";
 
-export const InventoryItem = (props: InventoryItemPropsType) => {
-    const {id, name, onItemClick, item} = props;
+export const InventoryItem = React.memo((props: InventoryItemPropsType) => {
+    const {onItemClick, item} = props;
+    const {id, name} = item;
 
     const getItemImg = useCallback(() => {
         return <img src={require(`../../assets/pics/item-thumbnails/${id}.png`)} alt={name}/>
@@ -19,14 +20,12 @@ export const InventoryItem = (props: InventoryItemPropsType) => {
                 <div className={s.Overlay}></div>
                 {getItemImg()}
             </button>
-            <div className={s.InventoryItem_title}>{name}</div>
+            <div className={s.InventoryItem_title}>{name.toUpperCase()}</div>
         </div>
     );
-}
+});
 
 type InventoryItemPropsType = {
     item: ItemType
-    id: string
-    name: string
     onItemClick: (item: ItemType) => void
 }
