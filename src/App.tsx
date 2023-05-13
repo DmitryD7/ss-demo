@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {Navbar} from "./components/Navbar/Navbar";
 import {SideBar} from "./components/Tab/Tab";
@@ -15,6 +15,9 @@ import {ErrorAlert} from "./components/ErrorAlert/ErrorAlert";
 
 
 function App() {
+    const sidebarBtnRef = useRef<HTMLDivElement | null>(null);
+    const [div, setDiv] = useState(sidebarBtnRef)
+
     const dispatch = useAppDispatch();
 
     const {fetchInventoryData, fetchModelsData, fetchItemRules} = appdataActions;
@@ -39,13 +42,20 @@ function App() {
 
     useEffect(() => {
         dispatch(setIsAppInitialized({isInit: inventoryItems.length > 0 && !!models && !!rules}))
-    }, [rules])
+    }, [rules]);
 
-    // const getOrder = () => {
-    //     const orderEntries = rules.order?.map((group, i) => [group, i]);
-    //     const order = orderEntries && Object.fromEntries(orderEntries);
-    //     return order;
-    // };
+
+    const updateSidebarBtnRef = (ref: React.RefObject<HTMLDivElement>) => {
+        // @ts-ignore
+        setDiv(ref.current)
+        sidebarBtnRef.current = ref.current;
+    };
+
+    useEffect(() => {
+        if (sidebarBtnRef.current) {
+            sidebarBtnRef.current.click();
+        }
+    }, [div]);
 
     const getGroupItems = (group: ItemGroupType) => inventoryItems.filter(i => i.group === group);
 
@@ -77,7 +87,7 @@ function App() {
             {isAppInit
                 ? <>
                     <Navbar menuItems={mappedGroups}/>
-                    <SideBar models={models}/>
+                    <SideBar models={models} updateRef={updateSidebarBtnRef}/>
                     {status === 'loading'
                         ? <div className={s.loader}>
                             <img src={Loader} alt="loader"/>

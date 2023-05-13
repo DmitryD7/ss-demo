@@ -1,5 +1,5 @@
 import s from './Tab.module.scss'
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {ModelsCarousel} from "../ModelsCarousel/ModelsCarousel";
 import {ModelsType} from "../../api/inventoryAPI";
 import {ControlsPanel} from "../ControlsPanel/ControlsPanel";
@@ -9,7 +9,15 @@ import {useAppDispatch, useOutsideAlerter} from "../../utils/utils";
 import {ModelCanvasDraw} from '../ModelCanvasDraw/ModelCanvasDraw';
 
 export const SideBar = (props: SideBarPropsType) => {
-    const {models} = props;
+    const {models, updateRef} = props;
+    const tabBtnRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (updateRef) {
+            updateRef(tabBtnRef);
+        }
+    }, [updateRef]);
+
     const dispatch = useAppDispatch();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const {setCurrModelId, setCurrModelIsCustom} = appdataActions;
@@ -22,14 +30,15 @@ export const SideBar = (props: SideBarPropsType) => {
 
     const openSidebarHandler = () => {
         setIsSidebarOpen(!isSidebarOpen);
-        window.document.body.style.overflowY = isSidebarOpen ? 'auto' : 'hidden';
-        window.document.body.style.paddingRight = isSidebarOpen ? '0' : '17px';
+        // window.document.body.style.overflowY = isSidebarOpen ? 'auto' : 'hidden';
+        // window.document.body.style.paddingRight = isSidebarOpen ? '0' : '17px';
         // window.document.body.clientWidth
     };
     const closeSideBarHandler = () => {
         setIsSidebarOpen(false);
-        document.body.style.overflow = 'auto';
-        window.document.body.style.paddingRight = '0';
+        // document.body.style.overflow = 'auto';
+        // compareSz()
+        // window.document.body.style.paddingRight = '0';
     };
 
     useOutsideAlerter(sidebar, () => setIsSidebarOpen(false));
@@ -44,7 +53,7 @@ export const SideBar = (props: SideBarPropsType) => {
     return (
         <div className={`${s.Main} ${isSidebarOpen && s.SideBar_Opened}`}>
             <div className={`${s.SideBar} ${isSidebarOpen && s.show}`}>
-                <div className={s.SideBar_Tab} onClick={openSidebarHandler} id={'SideBar_Tab'}></div>
+                <div className={s.SideBar_Tab} onClick={openSidebarHandler} id={'SideBar_Tab'} ref={tabBtnRef}></div>
                 <div
                     className={s.SideBar_Source_Tab}
                     id={'SideBar_Source_Tab'}
@@ -55,7 +64,6 @@ export const SideBar = (props: SideBarPropsType) => {
                     {!isCustom && <>
                         {!id && <h2>Select a model</h2>}
                         {id
-                            // ? <ModelCanvas currItems={currItems} currModelId={id} currModelType={type}/>
                             ? <ModelCanvasDraw currItems={currItems} currModelId={id} currModelType={type}/>
                             : <div className={s.ModelsList}>
                                 <ModelsCarousel models={models}/>
@@ -73,4 +81,6 @@ export const SideBar = (props: SideBarPropsType) => {
 
 type SideBarPropsType = {
     models: ModelsType
+    // sidebarBtnRef: React.RefObject<HTMLDivElement>;
+    updateRef?: (ref: React.RefObject<HTMLDivElement>) => void;
 }

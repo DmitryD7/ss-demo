@@ -2,8 +2,8 @@
 	"exclusion": {},
 	"nude": [["top", "bot"]],
 	"order": [
-		"feet",
 		"top",
+		"feet",
 		"bot",
 		"bag"
 	]

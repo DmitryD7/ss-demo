@@ -1,11 +1,11 @@
 import {InventoryItem} from "../../components/InventoryItem/InventoryItem";
 import {ItemType, RulesType} from "../../api/inventoryAPI";
-import {useAppDispatch} from "../../utils/utils";
+import {sortInventoryByOrder, useAppDispatch} from "../../utils/utils";
 import s from "./InventoryPage.module.scss"
 import {appdataActions, appdataSelectors} from "../../app/appdataReducer";
 import {useSelector} from "react-redux";
 import {CurrentItemType} from "../../app/appdataReducer/appdataReducer";
-import {useCallback} from "react";
+import {useCallback, useMemo} from "react";
 
 export const InventoryPage = (props: InventoryPagePropsType) => {
     const {inventory, rules} = props;
@@ -46,6 +46,8 @@ export const InventoryPage = (props: InventoryPagePropsType) => {
         return {items, model};
     }, [rules]);
 
+    const sortedInventory = useMemo(() => sortInventoryByOrder(inventory, rules.order), [inventory, rules.order]);
+
     const onSidebarOpen = () => {
         const mouseClickEvents = ['mousedown', 'click', 'mouseup'];
         const element = document.querySelector('#SideBar_Tab');
@@ -72,7 +74,7 @@ export const InventoryPage = (props: InventoryPagePropsType) => {
 
     return (
         <div className={s.InventoryPage}>
-            {inventory.map(item => {
+            {sortedInventory.map(item => {
                 return <InventoryItem
                     key={item.id}
                     onItemClick={onItemClick}

@@ -5,7 +5,7 @@ export const ModelComponent = React.memo((props: ModelComponentPropsType) => {
     const {id, onModelClick, prewarps} = props;
 
     const getModelImg = () => {
-        return <img src={require(`../../../assets/pics/model-chooser-1950/${id}.png`)} alt={`model-${id}`}/>
+        return <img src={require(`../../../assets/pics/model-chooser-1300/${id}.png`)} alt={`model-${id}`}/>
     };
 
     const onModelClickHandler = () => {

@@ -66,24 +66,24 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                 className={s.mySwiper}
                 autoHeight={true}
             >
-                <SwiperSlide>
-                    <div className={s.UploadImg}>
-                        <input
-                            type={'file'}
-                            id={'myImage'}
-                            accept={"image/*"}
-                            onChange={onUploadPhotoHandler}
-                            style={{display: 'none'}}
-                        />
-                        <label htmlFor={'myImage'}>
-                            <img
-                                src={require(`../../assets/pics/model-chooser-1950/0.png`)}
-                                alt={'upload your'}
-                                style={{height: '87vh', cursor: 'pointer', }}
-                            />
-                        </label>
-                    </div>
-                </SwiperSlide>
+                {/*<SwiperSlide>*/}
+                {/*    <div className={s.UploadImg}>*/}
+                {/*        <input*/}
+                {/*            type={'file'}*/}
+                {/*            id={'myImage'}*/}
+                {/*            accept={"image/*"}*/}
+                {/*            onChange={onUploadPhotoHandler}*/}
+                {/*            style={{display: 'none'}}*/}
+                {/*        />*/}
+                {/*        <label htmlFor={'myImage'}>*/}
+                {/*            <img*/}
+                {/*                src={require(`../../assets/pics/model-chooser-1300/0.png`)}*/}
+                {/*                alt={'upload your'}*/}
+                {/*                style={{height: '87vh', cursor: 'pointer', }}*/}
+                {/*            />*/}
+                {/*        </label>*/}
+                {/*    </div>*/}
+                {/*</SwiperSlide>*/}
                 {modelsArr.map(model => {
                     const id = Object.keys(model)[0];
                     // @ts-ignore

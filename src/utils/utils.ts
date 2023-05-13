@@ -1,6 +1,7 @@
 import {useDispatch} from "react-redux";
 import {AppDispatchType} from "../app/types";
 import {useEffect} from "react";
+import {ItemType} from "../api/inventoryAPI";
 
 export const useAppDispatch = () => useDispatch<AppDispatchType>();
 
@@ -35,8 +36,9 @@ export const useOutsideAlerter = (ref: any, onCloseFunc: any) => {
         function handleClickOutside(event: any) {
             if (ref.current && !ref.current.contains(event.target)) {
                 onCloseFunc()
-                document.body.style.overflow = 'auto';
-                window.document.body.style.paddingRight = '0';
+                // document.body.style.overflow = 'auto';
+                // window.document.body.style.paddingRight = '0';
+
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -45,3 +47,15 @@ export const useOutsideAlerter = (ref: any, onCloseFunc: any) => {
         };
     }, [ref, onCloseFunc]);
 };
+
+export function sortInventoryByOrder(
+    inventory: ItemType[],
+    order: string[]
+) {
+    const newArr = [...inventory];
+    return newArr.sort((a, b) => {
+        const aIndex = order.indexOf(a.group);
+        const bIndex = order.indexOf(b.group);
+        return aIndex - bIndex;
+    });
+}

@@ -6,6 +6,11 @@
 
   display: flex;
   justify-content: center;
+  .loader {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 100%);
+  }
 
   img {
     height: 100%;
