@@ -54,8 +54,6 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
             <Swiper
                 effect={"coverflow"}
                 coverflowEffect={settingsCoverflow}
-                // slidesPerView={isSingleModel ? 1 : 1.3}
-                // spaceBetween={isSingleModel ? 50 : -251}
                 slidesPerView={isSingleModel ? 1.1 : 1.3}
                 spaceBetween={isSingleModel ? -111 : -251}
                 centeredSlides={true}
@@ -66,6 +64,7 @@ export const ModelsCarousel = (props: ModelsCarouselPropsType) => {
                 className={s.mySwiper}
                 autoHeight={true}
             >
+                {/*Upload model slide*/}
                 {/*<SwiperSlide>*/}
                 {/*    <div className={s.UploadImg}>*/}
                 {/*        <input*/}

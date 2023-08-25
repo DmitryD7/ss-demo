@@ -30,15 +30,9 @@ export const SideBar = (props: SideBarPropsType) => {
 
     const openSidebarHandler = () => {
         setIsSidebarOpen(!isSidebarOpen);
-        // window.document.body.style.overflowY = isSidebarOpen ? 'auto' : 'hidden';
-        // window.document.body.style.paddingRight = isSidebarOpen ? '0' : '17px';
-        // window.document.body.clientWidth
     };
     const closeSideBarHandler = () => {
         setIsSidebarOpen(false);
-        // document.body.style.overflow = 'auto';
-        // compareSz()
-        // window.document.body.style.paddingRight = '0';
     };
 
     useOutsideAlerter(sidebar, () => setIsSidebarOpen(false));
@@ -81,6 +75,5 @@ export const SideBar = (props: SideBarPropsType) => {
 
 type SideBarPropsType = {
     models: ModelsType
-    // sidebarBtnRef: React.RefObject<HTMLDivElement>;
     updateRef?: (ref: React.RefObject<HTMLDivElement>) => void;
 }
